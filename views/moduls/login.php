@@ -30,6 +30,11 @@
           </div>
           <!-- /.col -->
         </div>
+        <?php
+          $login = new ControllerUsuarios();  //this class belongs to usuarios.controller.php
+          $login -> ctrLoginUsuario(); // this a method from the class ControllerUsuarios
+        ?>
+
       </form>
     </div>
     <!-- /.card-body -->
