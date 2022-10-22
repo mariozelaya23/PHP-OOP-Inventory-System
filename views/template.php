@@ -1,3 +1,7 @@
+<?php
+  session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +14,7 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="views/plugins/fontawesome-free/css/all.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="views/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="views/dist/css/adminlte.css">
 
   <!-- jQuery -->
   <script src="views/plugins/jquery/jquery.min.js"></script>
@@ -50,7 +54,8 @@
            $_GET['route'] == 'clientes' ||
            $_GET['route'] == 'ventas' ||
            $_GET['route'] == 'crear-venta' ||
-           $_GET['route'] == 'reportes') 
+           $_GET['route'] == 'reportes' ||
+           $_GET['route'] == 'salir') 
         {
           include 'moduls/'.$_GET['route'].'.php';
         }else
