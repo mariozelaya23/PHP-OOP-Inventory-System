@@ -55,7 +55,7 @@
            $_GET['route'] == 'ventas' ||
            $_GET['route'] == 'crear-venta' ||
            $_GET['route'] == 'reportes' ||
-           $_GET['route'] == 'salir') 
+           $_GET['route'] == 'salir')
         {
           include 'moduls/'.$_GET['route'].'.php';
         }else
