@@ -28,7 +28,7 @@
 
       <div class="card-body">
         
-        <table id="tablaUsuarios" class="table table-bordered table-striped">
+        <table id="tablaUsuarios" class="table table-bordered table-striped tables"> <!-- tables is the class name, I use this name on tamplate.js to activate the DataTable plugin -->
           
           <thead>
             <tr>
@@ -79,22 +79,86 @@
 <div class="modal fade" id="modalAgregarUsuario">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Large Modal</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>One fine body&hellip;</p>
-      </div>
-      <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+      <!-- FORM -->
+      <form role="form" method="post" enctype="multipart/form-data">
+        <!-- MODAL HEADER -->
+        <div class="modal-header" style="background: #3d9970; color: white;">
+          <h4 class="modal-title">Agregar usuario</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!-- MODAL BODY -->
+        <div class="modal-body">
+          <div class="card-body">
+            <!-- Textbox Name -->
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" class="form-control input-lg" name="nuevoNombre" placeholder="Ingresar Nombre" required>
+              </div>      
+            </div>
+            <!-- Textbox User-->
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <input type="text" class="form-control input-lg" name="nuevoUsuario" placeholder="Ingresar Usuario" required>
+              </div>      
+            </div>
+            <!-- Textbox Password-->
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <input type="password" class="form-control input-lg" name="nuevoPassword" placeholder="Ingresar Contrasena" required>
+              </div>      
+            </div>
+            <!-- Textbox Role-->
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                <select class="form-control input-lg" name="nuevoPerfil">
+                  <option value="">Seleccionar perfil</option>
+                  <option value="Administrador">Administrador</option>
+                  <option value="Especial">Especial</option>
+                  <option value="Vendedor">Vendedor</option>
+                </select>
+              </div>      
+            </div>
+            <!-- Upload picture -->
+            <div class="form-group">
+              <div class="panel">SUBIR FOTO</div>
+              <input type="file" id="nuevaFoto" name="nuevaFoto">
+              <p class="help-block">Peso maximo de la foto 5MB</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+          <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </div>
+      </form> <!-- /FORM -->
     </div>
     <!-- /.modal-content -->
   </div>
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+
+<script>
+  $(function () {
+    $("#tablaUsuarios").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+    }).buttons().container().appendTo('#tablaUsuarios_wrapper .col-md-6:eq(0)');
+    // $('#example2').DataTable({
+    //   "paging": false,
+    //   "lengthChange": false,
+    //   "searching": false,
+    //   "ordering": true,
+    //   "info": true,
+    //   "autoWidth": false,
+    //   "responsive": true,
+    // });
+  });
+</script>
