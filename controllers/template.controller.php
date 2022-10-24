@@ -3,7 +3,7 @@
 
 class ControllerTemplate
 {
-	public function ctrTemplate()
+	public static function ctrTemplate()
 	{
 		include "views/template.php";
 	}

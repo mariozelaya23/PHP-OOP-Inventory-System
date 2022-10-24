@@ -12,5 +12,9 @@ class ModelUsuarios
 		$stmt->execute();
 
 		return $stmt->fetch(); //fetch() will teturn just one ROW of our table, this fetch will be receive by the var_dump on usuarios.controller.php
+
+		$stmt -> close(); //Closing connection
+
+		$stmt -> null;
 	}
 }

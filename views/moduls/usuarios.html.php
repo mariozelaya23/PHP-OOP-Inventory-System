@@ -28,7 +28,7 @@
 
       <div class="card-body">
         
-        <table id="tablaUsuarios" class="table table-bordered table-striped tables">
+        <table id="tablaUsuarios" class="table table-bordered table-striped tables"> <!-- tables is the class name, I use this name on tamplate.js to activate the DataTable plugin -->
           
           <thead>
             <tr>
@@ -136,12 +136,6 @@
           <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
           <button type="submit" class="btn btn-primary">Guardar cambios</button>
         </div>
-
-        <?php
-          $crearUsuario = new ControllerUsuarios();
-          $crearUsuario -> ctrCrearUsuario();
-        ?>
-
       </form> <!-- /FORM -->
     </div>
     <!-- /.modal-content -->
