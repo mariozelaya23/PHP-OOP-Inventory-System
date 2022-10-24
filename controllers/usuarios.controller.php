@@ -54,22 +54,26 @@ class ControllerUsuarios
 				preg_match('/^[a-zA-Z0-9-]+$/', $_POST["nuevoPassword"]))
 			{
 
+				$table = "usuarios";
+
 			}else
 			{
-				echo '<script>
-				swal({
-					type: "error",
-					title: "El usuario no puede ir vacio o llevar caracteres especiales!!",
-					showConfirmButton: true,
-					confirmButtonText: "Cerrar",
-					closeOnConfirm: false
+				echo "<script>
+
+					Swal.fire({
+					  icon: 'error',
+					  title: 'El usuario no puede ir vacio o llevar caracteres especiales!!',
+					  showConfirmButton: true,
+					  confirmButtonText: 'Cerrar',
+					  closeOnConfirm: false
 					}).then((result)=>{
 						if(result.value)
 						{
-							window.location = "usuarios";
+							window.location = 'usuarios';
 						}
 					});
-				</script>';
+					
+				</script>";
 			}
 
 		}

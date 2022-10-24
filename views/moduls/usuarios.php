@@ -80,7 +80,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <!-- FORM -->
-      <form role="form" method="post" enctype="multipart/form-data">
+      <form method="post" enctype="multipart/form-data">
         <!-- MODAL HEADER -->
         <div class="modal-header" style="background: #3d9970; color: white;">
           <h4 class="modal-title">Agregar usuario</h4>
