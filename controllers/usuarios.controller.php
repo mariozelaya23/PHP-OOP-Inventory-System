@@ -56,6 +56,36 @@ class ControllerUsuarios
 
 				$table = "usuarios";
 
+				// db column => input type "name"
+				$data = array("nombre" => $_POST["nuevoNombre"],
+							   "usuario" => $_POST["nuevoUsuario"],
+							   "password" => $_POST["nuevoPassword"],
+							   "perfil" => $_POST["nuevoPerfil"]);
+
+				//ask for response from the model, and we send to parameters
+				$response = ModelUsuarios::mdlAddUser($table, $data);
+
+				//if the model response ok, we send a sweetalert to the user confirming the the user was saved
+				if($response == "ok")
+				{
+					echo "<script>
+
+						Swal.fire({
+						  icon: 'success',
+						  title: 'El usuario a sido guardado correctamente!!',
+						  showConfirmButton: true,
+						  confirmButtonText: 'Cerrar',
+						  closeOnConfirm: false
+						}).then((result)=>{
+							if(result.value)
+							{
+								window.location = 'usuarios';
+							}
+						});
+						
+					</script>";
+				}
+
 			}else
 			{
 				echo "<script>

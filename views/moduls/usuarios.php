@@ -116,7 +116,7 @@
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-users"></i></span>
-                <select class="form-control input-lg" name="nuevoPerfil">
+                <select class="form-control input-lg" name="nuevoPerfil" required>
                   <option value="">Seleccionar perfil</option>
                   <option value="Administrador">Administrador</option>
                   <option value="Especial">Especial</option>
