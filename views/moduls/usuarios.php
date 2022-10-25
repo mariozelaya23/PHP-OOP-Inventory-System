@@ -127,8 +127,9 @@
             <!-- Upload picture -->
             <div class="form-group">
               <div class="panel">SUBIR FOTO</div>
-              <input type="file" id="nuevaFoto" name="nuevaFoto">
+              <input type="file" class="nuevaFoto" name="nuevaFoto">
               <p class="help-block">Peso maximo de la foto 5MB</p>
+              <img src="views/img/users/default/user.png" class="img-thumbnail preview" width="100px">
             </div>
           </div>
         </div>

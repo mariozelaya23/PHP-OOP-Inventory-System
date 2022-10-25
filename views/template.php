@@ -99,6 +99,6 @@
 
   <!-- </div> --> <!-- This wrapper was moved inside the php tag to validate session -->
   <!-- ./wrapper --> 
-
+  <script src="views/js/usuarios.js"></script>
   </body> <!-- TEMP -->
 </html>
