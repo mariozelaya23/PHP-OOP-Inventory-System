@@ -49,10 +49,68 @@ class ControllerUsuarios
 	{
 		if(isset($_POST["nuevoUsuario"]))
 		{
+			// this preg_match let the user insert spanish characters
 			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoNombre"]) &&
 				preg_match('/^[a-zA-Z0-9-]+$/', $_POST["nuevoUsuario"]) &&
 				preg_match('/^[a-zA-Z0-9-]+$/', $_POST["nuevoPassword"]))
 			{
+
+				$route = ""; //initializing route is empty
+
+				//validate image, remember that image is send by $_FILE not $_POST
+				//"nuevaFoto" is the name of the input "SUBIR FOTO" 
+				//"tmp_name" is the temporary file that is store on the browser when you upload a file, C:\xampp\tmp\filename
+				if(isset($_FILES['nuevaFoto']["tmp_name"]))
+				{
+					// getimagesize get a list of information with the image size uploaded
+					// saving getimagesize on a list with 2 parameters, on $width will save the index 0 which is width of the image and on index 1
+					// will save the hight of the image
+					list($width, $hight) = getimagesize($_FILES['nuevaFoto']["tmp_name"]);
+
+					// var_dump($_FILES['nuevaFoto']["tmp_name"]); with this you can check the tmp_name route
+					// var_dump(getimagesize($_FILES['nuevaFoto']["tmp_name"]); with this you can see the list of getimagesize info
+
+					//resize image
+					$newWidth = 200;
+					$newhight = 200;
+
+					// Creating folder where the user image will be store, it will create a folder with the name that comes with nuevoUsuario
+					$folder = "views/img/users/".$_POST["nuevoUsuario"];
+
+					//javascript code to create folder, first param "folder name", and second param the permissions (write and read)
+					mkdir($folder, 0755);
+
+					// Base of image type, we are going to apply the following default PHP functions
+					if ($_FILES["nuevaFoto"]["type"] == "image/jpeg") 
+					{
+						//save image on the folder with the following name, including a ramdom number between 100 and 999
+						$random = mt_rand(100,999);
+						$route = "views/img/users".$_POST["nuevoUsuario"]."/".$random.".jpeg";
+
+						// image trim to 200x200 
+						$source = imagecreatefromjpeg($_FILES['nuevaFoto']["tmp_name"]);
+						$destination = imagecreatetruecolor($newWidth, $newhight);
+						imagecopyresized($destination, $source, 0, 0, 0, 0, $newWidth, $newhight, $width, $hight);
+						imagejpeg($destination, $route);  //saving the file
+
+					}
+
+					// Base of image type, we are going to apply the following default PHP functions
+					if ($_FILES["nuevaFoto"]["type"] == "image/png") 
+					{
+						//save image on the folder with the following name, including a ramdom number between 100 and 999
+						$random = mt_rand(100,999);
+						$route = "views/img/users".$_POST["nuevoUsuario"]."/".$random.".png";
+
+						// image trim to 200x200 
+						$source = imagecreatefrompng($_FILES['nuevaFoto']["tmp_name"]);
+						$destination = imagecreatetruecolor($newWidth, $newhight);
+						imagecopyresized($destination, $source, 0, 0, 0, 0, $newWidth, $newhight, $width, $hight);
+						imagepng($destination, $route);  //saving the file
+
+					}
+
+				}
 
 				$table = "usuarios";
 
@@ -60,7 +118,8 @@ class ControllerUsuarios
 				$data = array("nombre" => $_POST["nuevoNombre"],
 							   "usuario" => $_POST["nuevoUsuario"],
 							   "password" => $_POST["nuevoPassword"],
-							   "perfil" => $_POST["nuevoPerfil"]);
+							   "perfil" => $_POST["nuevoPerfil"],
+							   "foto" => $route);
 
 				//ask for response from the model, and we send to parameters
 				$response = ModelUsuarios::mdlAddUser($table, $data);

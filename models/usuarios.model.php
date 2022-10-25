@@ -21,14 +21,15 @@ class ModelUsuarios
 	//add users
 	public static function mdlAddUser($table, $data)
 	{
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $table(nombre, usuario, password, perfil)
-												VALUES(:nombre, :usuario, :password, :perfil)");
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $table(nombre, usuario, password, perfil, foto)
+												VALUES(:nombre, :usuario, :password, :perfil, :foto)");
 
 		//connecting the parameters
 		$stmt -> bindParam(":nombre", $data["nombre"], PDO::PARAM_STR);
 		$stmt -> bindParam(":usuario", $data["usuario"], PDO::PARAM_STR);
 		$stmt -> bindParam(":password", $data["password"], PDO::PARAM_STR);
 		$stmt -> bindParam(":perfil", $data["perfil"], PDO::PARAM_STR);
+		$stmt -> bindParam(":foto", $data["foto"], PDO::PARAM_STR);
 
 		//if execute we return an ok or an error
 		if ($stmt->execute()) 
