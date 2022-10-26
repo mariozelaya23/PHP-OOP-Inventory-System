@@ -187,4 +187,17 @@ class ControllerUsuarios
 		}
 	}
 
+	// show users method - this function will connect to the MdlShowUsuarios() on usuarios.model.php, this is already created.
+	public static function ctrShowUsers($item, $value)
+	{
+
+		$table = "usuarios";
+
+		//response
+		$response = ModelUsuarios::MdlShowUsuarios($table, $item, $value); //we saved the response (from the model) in the variable, so we can decice if we use it or not, remeber that MdlShowUsuarios requires 3 parameters
+
+		//we are returning the $response to go back to the view
+		return $response;
+	}
+
 }

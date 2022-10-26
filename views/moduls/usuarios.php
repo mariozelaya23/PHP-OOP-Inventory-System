@@ -44,21 +44,53 @@
           </thead>
 
           <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td><button class="btn btn-danger btn-xs">Desactivado</button></td>
-              <td></td>
-              <td>
-                <div class="btn-group">
-                  <button class="btn btn-warning"><i class="fa fa-pen"></i></button>
-                  <button class="btn btn-danger"><i class="fa fa-times"></i></button>
-                </div>
-              </td>
-            </tr>
+
+            <?php
+
+              // we are re-using MdlShowUsuarios method from the model which fetch just one user, but we need all the user, so we are sending $item and $value as null, because we dont need just one user, later if we need to fetch one user we can use those variables
+              $item =  null;
+              $value = null;
+              $users = ControllerUsuarios::ctrShowUsers($item, $value);
+
+              // var_dump($users); //returns an array
+
+              // due to $users return an array, we can use a foreach
+              foreach ($users as $key => $value) {
+                // var_dump($value["usuario_id"]);  //as a test showing in an array all the users id's
+
+                //showing all the users on the users table
+                echo '
+                  <tr>
+                    <td>'.$value["usuario_id"].'</td>
+                    <td>'.$value["nombre"].'</td>
+                    <td>'.$value["usuario"].'</td>';
+
+                    // if the user does not have an image, I apply the following condition
+                    if ($value["usuario"] != "")
+                    {
+                      
+                      echo '<td><img src="'.$value["foto"].'" class="img-thumbnail" width="40px"></td>';
+
+                    }else
+                    {
+                      echo '<td><img src="views/img/users/default/user.png" class="img-thumbnail" width="40px"></td>';
+                    }
+                    
+                    echo'
+                    <td>'.$value["perfil"].'</td>
+                    <td><button class="btn btn-danger btn-xs">Desactivado</button></td>
+                    <td>'.$value["ultimo_login"].'</td>
+                    <td>
+                      <div class="btn-group">
+                        <button class="btn btn-warning"><i class="fa fa-pen"></i></button>
+                        <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  ';
+              }
+            ?>
+
           </tbody>
         
         </table>
