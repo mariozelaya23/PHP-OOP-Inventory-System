@@ -31,6 +31,16 @@ class ControllerUsuarios
 					{
 						$_SESSION['sessionStarted'] = 'ok'; //the variable sessionStarted comes from template.php, remember to add session_start() on template.php because we are using sessions
 						// if user and password match (session = ok), redirect to the dashboard
+
+
+						//SESSION VARIABLES
+						$_SESSION['usuario_id'] = $response['usuario_id'];
+						$_SESSION['nombre'] = $response['nombre'];
+						$_SESSION['usuario'] = $response['usuario'];
+						$_SESSION['password'] = $response['password'];
+						$_SESSION['perfil'] = $response['perfil'];
+						$_SESSION['foto'] = $response['foto'];
+						
 						echo "<script>
 							window.location = 'dashboard';
 						</script>";

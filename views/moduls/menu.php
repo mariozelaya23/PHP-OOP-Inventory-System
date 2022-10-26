@@ -11,10 +11,21 @@
     <!-- Sidebar user (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="views/img/users/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+
+        <?php
+          if ($_SESSION['foto'] != "")
+          {
+            echo '<img src="'.$_SESSION['foto'].'" class="img-circle elevation-2" alt="User Image">';
+          }else
+          {
+            //if the user has no photo it will show the following:
+            echo '<img src="views/img/users/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">';
+          }
+        ?>
+
       </div>
       <div class="info">
-        <a href="#" class="d-block">Alexander Pierce</a>
+        <a href="#" class="d-block"><?php echo $_SESSION['nombre'];?></a>
       </div>
     </div>
 
