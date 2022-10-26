@@ -10,6 +10,10 @@ class ControllerUsuarios
 			if(preg_match('/^[a-zA-Z0-9-]+$/', $_POST['ingUsuario']) &&  //preg_match is used to limit characters typed by the user, SQL injection
 				preg_match('/^[a-zA-Z0-9-]+$/', $_POST['ingPassword'])) //preg_match no special characters allowed
 			{
+				//encrypting the password
+				//2 parameters, the str and the hash (pass encapsulation) type
+				$encrypPass = crypt($_POST['ingPassword'], '$2a$07$usesomesillystringforsalt$');
+
 				//here we (controller) are going to ASK to the model
 				$table = 'usuarios'; // table user from the database, preparing to send to the usuarios table the following info
 
@@ -23,7 +27,7 @@ class ControllerUsuarios
 				$response = ModelUsuarios::MdlShowUsuarios($table, $item, $value); //we saved the response (from the model) in the variable, so we can decice if we use it or not
 				if(is_array($response))  //becasue response is an array I put this if
 				{
-					if($response['usuario'] == $_POST['ingUsuario'] && $response['password'] == $_POST['ingPassword'])
+					if($response['usuario'] == $_POST['ingUsuario'] && $response['password'] == $encrypPass)
 					{
 						$_SESSION['sessionStarted'] = 'ok'; //the variable sessionStarted comes from template.php, remember to add session_start() on template.php because we are using sessions
 						// if user and password match (session = ok), redirect to the dashboard
@@ -114,10 +118,14 @@ class ControllerUsuarios
 
 				$table = "usuarios";
 
+				//encrypting the passwords that we send to the model using the php function crypt, this funcion will use
+				// 2 parameters, the str and the hash (pass encapsulation) type
+				$encrypPass = crypt($_POST["nuevoPassword"], '$2a$07$usesomesillystringforsalt$');
+
 				// db column => input type "name"
 				$data = array("nombre" => $_POST["nuevoNombre"],
 							   "usuario" => $_POST["nuevoUsuario"],
-							   "password" => $_POST["nuevoPassword"],
+							   "password" => $encrypPass,
 							   "perfil" => $_POST["nuevoPerfil"],
 							   "foto" => $route);
 
