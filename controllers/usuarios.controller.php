@@ -33,14 +33,15 @@ class ControllerUsuarios
 						// if user and password match (session = ok), redirect to the dashboard
 
 
-						//SESSION VARIABLES
+						//SESSION VARIABLES (this session variables can be use to display information of the user, for example on the menu.php, using
+						// $_SESSION['nombre'] and $_SESSION['foto'] we echo the name and foto of the user who start the session (login))
 						$_SESSION['usuario_id'] = $response['usuario_id'];
 						$_SESSION['nombre'] = $response['nombre'];
 						$_SESSION['usuario'] = $response['usuario'];
 						$_SESSION['password'] = $response['password'];
 						$_SESSION['perfil'] = $response['perfil'];
 						$_SESSION['foto'] = $response['foto'];
-						
+
 						echo "<script>
 							window.location = 'dashboard';
 						</script>";
