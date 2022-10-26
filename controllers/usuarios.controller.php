@@ -100,7 +100,7 @@ class ControllerUsuarios
 					{
 						//save image on the folder with the following name, including a ramdom number between 100 and 999
 						$random = mt_rand(100,999);
-						$route = "views/img/users".$_POST["nuevoUsuario"]."/".$random.".png";
+						$route = "views/img/users/".$_POST["nuevoUsuario"]."/".$random.".png";
 
 						// image trim to 200x200 
 						$source = imagecreatefrompng($_FILES['nuevaFoto']["tmp_name"]);
