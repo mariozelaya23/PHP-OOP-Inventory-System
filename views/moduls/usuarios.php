@@ -76,13 +76,14 @@
                       echo '<td><img src="views/img/users/default/user.png" class="img-thumbnail" width="40px"></td>';
                     }
                     
+                    //with editarUsuario we are going to use AJAX - AJAX will helps us to connect to database through javascript, so this means that we will use the the file usuario.js, we are going to use the class btnEditarUsuario 
                     echo'
                     <td>'.$value["perfil"].'</td>
                     <td><button class="btn btn-danger btn-xs">Desactivado</button></td>
                     <td>'.$value["ultimo_login"].'</td>
                     <td>
                       <div class="btn-group">
-                        <button class="btn btn-warning"><i class="fa fa-pen"></i></button>
+                        <button class="btn btn-warning btnEditarUsuario" idUsuario="'.$value["usuario_id"].'" data-toggle="modal" data-target="#modalEditarUsuario"><i class="fa fa-pen"></i></button>
                         <button class="btn btn-danger"><i class="fa fa-times"></i></button>
                       </div>
                     </td>
@@ -167,7 +168,7 @@
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
-          <button type="submit" class="btn btn-primary">Guardar cambios</button>
+          <button type="submit" class="btn btn-primary">Guardar usuario</button>
         </div>
 
         <?php
@@ -182,6 +183,86 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+<!-- MODAL EDIT USER -->
+<div class="modal fade" id="modalEditarUsuario">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- FORM -->
+      <form method="post" enctype="multipart/form-data">
+        <!-- MODAL HEADER -->
+        <div class="modal-header" style="background: #3d9970; color: white;">
+          <h4 class="modal-title">Editar usuario</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!-- MODAL BODY -->
+        <div class="modal-body">
+          <div class="card-body">
+            <!-- Textbox Name -->
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" class="form-control input-lg" id="editarNombre" name="editarNombre" value="" required>
+              </div>      
+            </div>
+            <!-- Textbox User-->
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <input type="text" class="form-control input-lg" id="editarUsuario" name="editarUsuario" value="" required>
+              </div>      
+            </div>
+            <!-- Textbox Password-->
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <input type="password" class="form-control input-lg" name="editarPassword" placeholder="Escriba la nueva contrasena" required>
+              </div>      
+            </div>
+            <!-- Textbox Role-->
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                <select class="form-control input-lg" name="editarPerfil" required>
+                  <option value="" id="editarPerfil"></option>
+                  <option value="Administrador">Administrador</option>
+                  <option value="Especial">Especial</option>
+                  <option value="Vendedor">Vendedor</option>
+                </select>
+              </div>      
+            </div>
+            <!-- Upload picture -->
+            <div class="form-group">
+              <div class="panel">SUBIR FOTO</div>
+              <input type="file" class="nuevaFoto" name="editarFoto">
+              <p class="help-block">Peso maximo de la foto 5MB</p>
+              <img src="views/img/users/default/user.png" class="img-thumbnail preview" width="100px">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+          <button type="submit" class="btn btn-primary">Modificar cambios</button>
+        </div>
+
+<!--         <?php
+          $crearUsuario = new ControllerUsuarios();
+          $crearUsuario -> ctrCrearUsuario();
+        ?> -->
+
+      </form> <!-- /FORM -->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+
+
 
 
 <script>

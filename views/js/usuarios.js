@@ -50,3 +50,52 @@ $(".nuevaFoto").change(function(){
 		})
 	}
 })
+
+
+/*
+Edit User
+*/
+
+$(".btnEditarUsuario").click(function(){
+
+	//we are getting in a variable what brings in the attribute of this button btnEditarUsuario, with class idUsuario, 
+	//idUsuario comes from the modalEditarUsuario window and this class has the user id from the database
+	var idUsuario = $(this).attr("idUsuario");
+
+	//trying this the console (attr, variable)
+	// console.log("idUsuario", idUsuario);
+
+	//now that we are storing the user id that comes from the database we can use AJAX
+	//FormData() - class from javascript
+	//post variable idUsuario, idUsuario which is the variable that is above
+	var datos = new FormData();
+	datos.append("idUsuario", idUsuario);
+
+	$.ajax({
+
+		url:"ajax/usuarios.ajax.php",
+		method: "POST",
+		data: datos,
+		cache: false,
+		contentType: false,
+		processData: false,
+		dataType: "json",
+		success: function(respuesta){
+
+			// console.log("respuesta", respuesta);
+			$("#editarNombre").val(respuesta["nombre"]);
+			$("#editarUsuario").val(respuesta["usuario"]);
+			// due to editarPerfil is a select we use html instead of val
+			$("#editarPerfil").html(respuesta["perfil"]);
+			
+		}
+
+	});
+
+
+})
+
+
+
+
+
