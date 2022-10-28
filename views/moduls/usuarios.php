@@ -211,7 +211,7 @@
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                <input type="text" class="form-control input-lg" id="editarUsuario" name="editarUsuario" value="" required>
+                <input type="text" class="form-control input-lg" id="editarUsuario" name="editarUsuario" value="" readonly>
               </div>      
             </div>
             <!-- Textbox Password-->
@@ -219,6 +219,7 @@
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                 <input type="password" class="form-control input-lg" name="editarPassword" placeholder="Escriba la nueva contrasena" required>
+                <input type="hidden" id="currentPass" name="currentPass">
               </div>      
             </div>
             <!-- Textbox Role-->
@@ -239,6 +240,7 @@
               <input type="file" class="nuevaFoto" name="editarFoto">
               <p class="help-block">Peso maximo de la foto 5MB</p>
               <img src="views/img/users/default/user.png" class="img-thumbnail preview" width="100px">
+              <input type="hidden" name="fotoActual" id="fotoActual">
             </div>
           </div>
         </div>
@@ -247,10 +249,10 @@
           <button type="submit" class="btn btn-primary">Modificar cambios</button>
         </div>
 
-<!--         <?php
-          $crearUsuario = new ControllerUsuarios();
-          $crearUsuario -> ctrCrearUsuario();
-        ?> -->
+        <?php
+          $editarUsuario = new ControllerUsuarios();
+          $editarUsuario -> ctrEditarUsuario();
+        ?>
 
       </form> <!-- /FORM -->
     </div>

@@ -87,7 +87,21 @@ $(".btnEditarUsuario").click(function(){
 			$("#editarUsuario").val(respuesta["usuario"]);
 			// due to editarPerfil is a select we use html instead of val
 			$("#editarPerfil").html(respuesta["perfil"]);
-			
+			//due to sql UPDATE will update all the columns, in case the user does not change the role
+			$("#editarPerfil").val(respuesta["perfil"]);
+
+			//due to sql UPDATE will update all the columns, in case the user does not change the password, we need to send it hidden 
+			$("#currentPass").val(respuesta["password"]);
+
+			//due to sql UPDATE will update all the columns, in case the user does not change the picture
+			$("#fotoActual").val(respuesta["foto"]);
+
+			//showing the user picture
+			if(respuesta["foto"] != "")
+			{
+				$(".preview").attr("src", respuesta["foto"]);
+			}
+
 		}
 
 	});

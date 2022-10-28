@@ -58,4 +58,33 @@ class ModelUsuarios
 		//empty the object
 		$stmt -> null;
 	}
+
+	//edit user
+	public static function mdlEditUser($table, $data)
+	{
+		$stmt = Conexion::conectar()->prepare("UPDATE $table SET nombre = :nombre, password = :password, perfil = :perfil, foto = :foto
+												WHERE usuario = :usuario");
+
+		//connecting the parameters
+		$stmt -> bindParam(":nombre", $data["nombre"], PDO::PARAM_STR);
+		$stmt -> bindParam(":usuario", $data["usuario"], PDO::PARAM_STR);
+		$stmt -> bindParam(":password", $data["password"], PDO::PARAM_STR);
+		$stmt -> bindParam(":perfil", $data["perfil"], PDO::PARAM_STR);
+		$stmt -> bindParam(":foto", $data["foto"], PDO::PARAM_STR);
+
+		//if execute we return an ok or an error
+		if ($stmt->execute()) 
+		{
+			return "ok";
+		}else
+		{
+			return "error";
+		}
+
+		//closing connection
+		$stmt -> close();
+
+		//empty the object
+		$stmt -> null;
+	}
 }

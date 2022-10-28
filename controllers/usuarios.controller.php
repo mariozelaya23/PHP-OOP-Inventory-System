@@ -200,4 +200,173 @@ class ControllerUsuarios
 		return $response;
 	}
 
+	// edit user method
+	public static function ctrEditarUsuario()
+	{
+		// if it comes a POST with information
+		if(isset($_POST["editarUsuario"]))
+		{
+
+			// this preg_match to verify the information
+			// note this, if editarPassword wont be modified, that means that I will let the id="currentPass" as a password, so, the name="editarPassword" will come empty, that will generate conflics with this preg_match('/^[a-zA-Z0-9-]+$/', $_POST["editarPassword"], so we will remove that preg_match, because the only role that is authorize to change pass is the admin
+			// now, regarding editing the user nickname preg_match('/^[a-zA-Z0-9-]+$/', $_POST["editarUsuario"]) that will be disable to avoid conflic with users folders images which were created with the original nickname, so that preg_match will be removed
+			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarNombre"]))
+			{
+				//validate image
+				//if it comes the current picture (picture wont change), the variable $route will take $_POST["fotoActual"]
+				$route = $_POST["fotoActual"];
+
+				//if picture will change
+				//validate image, remember that image is send by $_FILE not $_POST
+				//"nuevaFoto" is the name of the input "SUBIR FOTO" 
+				//"tmp_name" is the temporary file that is store on the browser when you upload a file, C:\xampp\tmp\filename
+				if(isset($_FILES['editarFoto']["tmp_name"]) && !empty($_FILES["editarFoto"]["tmp_name"]))
+				{
+					// getimagesize get a list of information with the image size uploaded
+					// saving getimagesize on a list with 2 parameters, on $width will save the index 0 which is width of the image and on index 1
+					// will save the hight of the image
+					list($width, $hight) = getimagesize($_FILES['editarFoto']["tmp_name"]);
+
+					// var_dump($_FILES['nuevaFoto']["tmp_name"]); with this you can check the tmp_name route
+					// var_dump(getimagesize($_FILES['nuevaFoto']["tmp_name"]); with this you can see the list of getimagesize info
+
+					//resize image
+					$newWidth = 200;
+					$newhight = 200;
+
+					// Creating folder where the user image will be store, it will create a folder with the name that comes with nuevoUsuario
+					$folder = "views/img/users/".$_POST["editarUsuario"];
+
+					// if we are going to change the picture, we will ask first if exist another picture in the DB
+					if(!empty($_POST["fotoActual"]))
+					{
+						unlink($_POST["fotoActual"]); //this will delete the picture
+					}else
+					{
+						//javascript code to create folder, first param "folder name", and second param the permissions (write and read)
+						mkdir($folder, 0755);
+					}
+
+					// Base of image type, we are going to apply the following default PHP functions
+					if ($_FILES["editarFoto"]["type"] == "image/jpeg") 
+					{
+						//save image on the folder with the following name, including a ramdom number between 100 and 999
+						$random = mt_rand(100,999);
+						$route = "views/img/users/".$_POST["editarUsuario"]."/".$random.".jpeg";
+
+						// image trim to 200x200 
+						$source = imagecreatefromjpeg($_FILES['editarFoto']["tmp_name"]);
+						$destination = imagecreatetruecolor($newWidth, $newhight);
+						imagecopyresized($destination, $source, 0, 0, 0, 0, $newWidth, $newhight, $width, $hight);
+						imagejpeg($destination, $route);  //saving the file
+
+					}
+
+					// Base of image type, we are going to apply the following default PHP functions
+					if ($_FILES["editarFoto"]["type"] == "image/png") 
+					{
+						//save image on the folder with the following name, including a ramdom number between 100 and 999
+						$random = mt_rand(100,999);
+						$route = "views/img/users/".$_POST["editarUsuario"]."/".$random.".png";
+
+						// image trim to 200x200 
+						$source = imagecreatefrompng($_FILES['editarFoto']["tmp_name"]);
+						$destination = imagecreatetruecolor($newWidth, $newhight);
+						imagecopyresized($destination, $source, 0, 0, 0, 0, $newWidth, $newhight, $width, $hight);
+						imagepng($destination, $route);  //saving the file
+
+					}
+
+				}
+
+				$table = "usuarios";
+
+				if($_POST["editarPassword"] != "")
+				{
+					if(preg_match('/^[a-zA-Z0-9-]+$/', $_POST["editarPassword"]))
+					{
+						//encrypting the passwords that we send to the model using the php function crypt, this funcion will use
+						// 2 parameters, the str and the hash (pass encapsulation) type
+						$encrypPass = crypt($_POST["editarPassword"], '$2a$07$usesomesillystringforsalt$');
+					}else
+					{
+						echo "
+						<script>
+
+							Swal.fire({
+							  icon: 'error',
+							  title: 'La contrasena no puede ir vacio o llevar caracteres especiales',
+							  showConfirmButton: true,
+							  confirmButtonText: 'Cerrar',
+							  closeOnConfirm: false
+							}).then((result)=>{
+								if(result.value)
+								{
+									window.location = 'usuarios';
+								}
+							});
+							
+						</script>";
+					}
+
+				}else
+				{
+					$encrypPass = $currentPass;
+				}
+
+				//sending data to the model
+				// db column => input type "name"
+				$data = array("nombre" => $_POST["editarNombre"],
+							   "usuario" => $_POST["editarUsuario"],
+							   "password" => $encrypPass,
+							   "perfil" => $_POST["editarPerfil"],
+							   "foto" => $route);
+
+				//response
+				$response = ModelUsuarios::mdlEditUser($table, $data); //we saved the response (from the model) in the variable, so we can decice if we use it or not, remeber that MdlShowUsuarios requires 3 parameters
+
+				if($response == "ok")
+				{
+					echo "
+					<script>
+
+						Swal.fire({
+						  icon: 'success',
+						  title: 'El usuario a sido editado correctamente',
+						  showConfirmButton: true,
+						  confirmButtonText: 'Cerrar',
+						  closeOnConfirm: false
+						}).then((result)=>{
+							if(result.value)
+							{
+								window.location = 'usuarios';
+							}
+						});
+						
+					</script>";
+				}
+
+			}else
+			{
+				echo "<script>
+
+					Swal.fire({
+					  icon: 'error',
+					  title: 'El nombre no puede ir vacio o llevar caracteres especiales!!',
+					  showConfirmButton: true,
+					  confirmButtonText: 'Cerrar',
+					  closeOnConfirm: false
+					}).then((result)=>{
+						if(result.value)
+						{
+							window.location = 'usuarios';
+						}
+					});
+					
+				</script>";
+			}
+
+		}
+	}
+
 }
