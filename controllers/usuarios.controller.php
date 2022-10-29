@@ -311,7 +311,7 @@ class ControllerUsuarios
 
 				}else
 				{
-					$encrypPass = $currentPass;
+					$encrypPass = $_POST["currentPass"];
 				}
 
 				//sending data to the model
