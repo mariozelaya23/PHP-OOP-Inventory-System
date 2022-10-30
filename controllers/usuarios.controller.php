@@ -29,22 +29,31 @@ class ControllerUsuarios
 				{
 					if($response['usuario'] == $_POST['ingUsuario'] && $response['password'] == $encrypPass)
 					{
-						$_SESSION['sessionStarted'] = 'ok'; //the variable sessionStarted comes from template.php, remember to add session_start() on template.php because we are using sessions
-						// if user and password match (session = ok), redirect to the dashboard
+						//this condition is added later, we will validate the user state (active or not active)
+						if ($response['estado'] == 1) 
+						{
+							
+							$_SESSION['sessionStarted'] = 'ok'; //the variable sessionStarted comes from template.php, remember to add session_start() on template.php because we are using sessions
+							// if user and password match (session = ok), redirect to the dashboard
 
+							//SESSION VARIABLES (this session variables can be use to display information of the user, for example on the menu.php, using
+							// $_SESSION['nombre'] and $_SESSION['foto'] we echo the name and foto of the user who start the session (login))
+							$_SESSION['usuario_id'] = $response['usuario_id'];
+							$_SESSION['nombre'] = $response['nombre'];
+							$_SESSION['usuario'] = $response['usuario'];
+							$_SESSION['password'] = $response['password'];
+							$_SESSION['perfil'] = $response['perfil'];
+							$_SESSION['foto'] = $response['foto'];
 
-						//SESSION VARIABLES (this session variables can be use to display information of the user, for example on the menu.php, using
-						// $_SESSION['nombre'] and $_SESSION['foto'] we echo the name and foto of the user who start the session (login))
-						$_SESSION['usuario_id'] = $response['usuario_id'];
-						$_SESSION['nombre'] = $response['nombre'];
-						$_SESSION['usuario'] = $response['usuario'];
-						$_SESSION['password'] = $response['password'];
-						$_SESSION['perfil'] = $response['perfil'];
-						$_SESSION['foto'] = $response['foto'];
+							echo "<script>
+								window.location = 'dashboard';
+							</script>";
 
-						echo "<script>
-							window.location = 'dashboard';
-						</script>";
+						}else
+						{
+							echo '<br><div class="alert alert-danger">El usuario no esta activado</div>';
+						}
+
 
 					}else
 					{
