@@ -45,10 +45,37 @@ class ControllerUsuarios
 							$_SESSION['perfil'] = $response['perfil'];
 							$_SESSION['foto'] = $response['foto'];
 
-							echo "<script>
-								window.location = 'dashboard';
-							</script>";
+							// register the last login
+							date_default_timezone_set("America/Los_Angeles");
 
+							//get the current date and time
+							$fecha = date('Y-m-d');
+							$hora = date('H:i:s');
+
+							//joining fecha + hora
+							$fechaActual = $fecha.' '.$hora;
+
+							//column on the db to be updated
+							$item1 = "ultimo_login";
+
+							//passing current date
+							$valor1 = $fechaActual;
+
+							//user id
+							$item2 = "usuario_id";
+
+							//we are going to pass the user whos logging to the system
+							$valor2 = $response['usuario_id'];
+
+							//adding an answer
+							$ultimoLogin = ModelUsuarios::mdlActualizarUsuario($table, $item1, $valor1, $item2, $valor2);
+
+							if($ultimoLogin == "ok")
+							{
+								echo "<script>
+									window.location = 'dashboard';
+								</script>";
+							}
 						}else
 						{
 							echo '<br><div class="alert alert-danger">El usuario no esta activado</div>';
