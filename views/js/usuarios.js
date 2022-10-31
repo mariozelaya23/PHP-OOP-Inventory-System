@@ -70,6 +70,7 @@ $(".btnEditarUsuario").click(function(){
 	//post variable idUsuario, idUsuario which is the variable that is above
 	var datos = new FormData();
 	datos.append("idUsuario", idUsuario);
+	// console.log("idUsuario", idUsuario);
 
 	$.ajax({
 
@@ -83,6 +84,7 @@ $(".btnEditarUsuario").click(function(){
 		success: function(respuesta){
 
 			// console.log("respuesta", respuesta);
+			
 			$("#editarNombre").val(respuesta["nombre"]);
 			$("#editarUsuario").val(respuesta["usuario"]);
 			// due to editarPerfil is a select we use html instead of val
@@ -199,6 +201,39 @@ $("#nuevoUsuario").change(function(){
 				//cleaning the value
 				$("#nuevoUsuario").val("");
 			}
+		}
+
+	})
+
+})
+
+
+//Delete User
+$(document).on("click",".btnEliminarUsuario", function(){
+
+	//capturing attribute userid and picture and username
+	var idUsuario = $(this).attr("idUsuario");
+	var fotoUsuario = $(this).attr("fotoUsuario");
+	var usuario = $(this).attr("usuario");
+
+
+	//soft alert
+	Swal.fire({
+		icon: 'warning',
+	  	title: 'Esta seguro de borrar el usuario?',
+	  	text: 'Si no lo esta puede cancelar la accion!',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		cancelButtonText: 'Cancelar',
+		confirmButtonText: 'Si, borrar usuario!'
+	}).then(function(result){
+
+		if(result.value)
+		{
+			//capturing userId and picture, and also concatenating the variables above // this action will send this variables on GET 
+			//which will be received by the controller
+			window.location = "index.php?route=usuarios&idUsuario="+idUsuario+"&usuario="+usuario+"&fotoUsuario="+fotoUsuario;
 		}
 
 	})

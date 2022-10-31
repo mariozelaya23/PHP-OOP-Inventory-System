@@ -114,4 +114,28 @@ class ModelUsuarios
 		$stmt -> null;
 
 	}
+
+	//Delete user
+	public static function mdlBorrarUsuario($table, $datos)
+	{
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $table WHERE usuario_id = :usuario_id");
+
+		//connecting the parameters, NOTED that is a PARAM_INT
+		$stmt -> bindParam(":usuario_id", $datos, PDO::PARAM_INT);
+
+		//if execute we return an ok or an error
+		if ($stmt->execute()) 
+		{
+			return "ok";
+		}else
+		{
+			return "error";
+		}
+
+		//closing connection
+		$stmt -> close();
+
+		//empty the PDO object
+		$stmt -> null;
+	}
 }

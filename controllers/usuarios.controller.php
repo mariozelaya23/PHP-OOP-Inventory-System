@@ -405,4 +405,56 @@ class ControllerUsuarios
 		}
 	}
 
+	//Delete user
+	public static function ctrBorrarUsuario()
+	{
+		//if we received a GET variable
+		if(isset($_GET['idUsuario']))
+		{
+			//to the table user we will send the following data -> $datos, which is idUsuario
+			$table = "usuarios";
+			$datos = $_GET['idUsuario'];
+
+			//if get variable picture comes not empty that means that there is picture to delete
+			if($_GET['fotoUsuario'] != "")
+			{
+
+				//deleting the picture
+				unlink($_GET['fotoUsuario']);
+
+				//deleting the folder
+				rmdir('views/img/users/'.$_GET['usuario']);
+
+			}
+
+			//ask asnwer to the model
+			$response = ModelUsuarios::mdlBorrarUsuario($table, $datos);
+
+			if($response == "ok")
+			{
+				echo "
+				<script>
+
+					Swal.fire({
+					  icon: 'success',
+					  title: 'El usuario a sido eliminado correctamente',
+					  showConfirmButton: true,
+					  confirmButtonText: 'Cerrar',
+					  closeOnConfirm: false
+					}).then((result)=>{
+						if(result.value)
+						{
+							window.location = 'usuarios';
+						}
+					});
+					
+				</script>";
+			}
+
+
+		}
+
+
+	}
+
 }
