@@ -162,3 +162,45 @@ $(".tables").on("click", ".btnActivar", function(){
 
 	}
 })
+
+//check if username exist
+
+$("#nuevoUsuario").change(function(){
+
+	//when the input change remove the warning alert 
+	$(".alert").remove();
+
+	//capture the value of the username that is being typing
+	var usuario = $(this).val();
+
+	//we will ask ajax to bring some information if match in the database
+	var datos = new FormData();
+	datos.append("validarUsuario", usuario);
+
+	$.ajax
+	({
+
+		url:"ajax/usuarios.ajax.php",
+		method: "POST",
+		data: datos,
+		cache: false,
+		contentType: false,
+		processData: false,
+		dataType: "json",
+		success: function (respuesta) 
+		{
+			//console to see back is the answer from the database
+			// console.log("respuesta", respuesta);
+			if (respuesta) 
+			{
+				//sending message letting know the user that the username is already taken
+				$("#nuevoUsuario").parent().after('<div class="alert alert-warning">Este usuario ya existe en el sistema</div>');
+
+				//cleaning the value
+				$("#nuevoUsuario").val("");
+			}
+		}
+
+	})
+
+})

@@ -54,6 +54,25 @@ class AjaxUsers{
 
 	}
 
+	//Validate nuevoUsuario if exists
+	//creating the public variable and the method
+	//outside this class create the object
+	public $validarUsuario;
+
+
+	public function ajaxValidarUsuario()
+	{
+		
+		$item = "usuario";
+		$value = $this->validarUsuario;
+
+		$respuesta = ControllerUsuarios::ctrShowUsers($item, $value);
+
+		echo json_encode($respuesta);
+
+	}
+
+
 }
 
 //creating the object "Edit user"
@@ -76,5 +95,15 @@ if(isset($_POST['activarUsuario'])){
 	$edit -> activarId = $_POST['activarId'];
 	$edit -> activarUsuario = $_POST['activarUsuario'];
 	$edit -> ajaxActivarUsuario();
+
+}
+
+//creating the object "validarUsuario" if it comes a POST variable.
+if(isset($_POST["validarUsuario"]))
+{
+	
+	$valUsuario = new AjaxUsers();
+	$valUsuario -> validarUsuario = $_POST["validarUsuario"];  //here we match the variable that is above with the one that comes in the post
+	$valUsuario -> ajaxValidarUsuario();
 
 }

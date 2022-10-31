@@ -67,7 +67,7 @@ class ControllerUsuarios
 							//we are going to pass the user whos logging to the system
 							$valor2 = $response['usuario_id'];
 
-							//adding an answer
+							//adding an answer direct to the model
 							$ultimoLogin = ModelUsuarios::mdlActualizarUsuario($table, $item1, $valor1, $item2, $valor2);
 
 							if($ultimoLogin == "ok")
