@@ -56,7 +56,7 @@ $(".nuevaFoto").change(function(){
 Edit User
 */
 
-$(".btnEditarUsuario").click(function(){
+$(document).on("click", ".btnEditarUsuario", function(){
 
 	//we are getting in a variable what brings in the attribute of this button btnEditarUsuario, with class idUsuario, 
 	//idUsuario comes from the modalEditarUsuario window and this class has the user id from the database
@@ -141,7 +141,23 @@ $(".tables").on("click", ".btnActivar", function(){
 		processData: false,
 		success: function (respuesta) 
 		{
-			
+			//adding these lines to fix issue on mobiles when activating or desactivating users
+			if (window.matchMedia("(max-width:767px)").matches) 
+			{
+				Swal.fire({
+				  icon: 'success',
+				  title: 'El usuario a sido actualizado!!',
+				  showConfirmButton: true,
+				  confirmButtonText: 'Cerrar'
+				}).then(function(result){
+
+					if (result.value) 
+					{
+						window.location = "usuarios";
+					}
+
+				});
+			}
 		}
 
 	})
