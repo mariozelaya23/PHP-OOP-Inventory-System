@@ -34975,7 +34975,7 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   align-items: center;
   background-color: #b5bfc9;
   display: -ms-flexbox;
-/*  display: flex;*/
+  display: flex;
   -ms-flex-direction: column;
   flex-direction: column;
   height: 100vh;

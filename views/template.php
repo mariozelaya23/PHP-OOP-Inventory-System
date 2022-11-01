@@ -46,7 +46,7 @@
 
   </head>
 
-  <body class="hold-transition sidebar-mini login-page"> <!-- TEMP --> <!-- I added login-page -->
+  <body class="hold-transition sidebar-mini layout-fix"> <!-- TEMP --> <!-- I added login-page --> <!-- aca hay problemas -->
   <!-- Site wrapper -->
   <!-- <div class="wrapper"> --> <!-- TEMP --> <!-- This wrapper was moved inside the php tag to validate session -->
     <?php
