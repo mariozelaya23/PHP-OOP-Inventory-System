@@ -46,59 +46,64 @@
 
   </head>
 
-  <body class="hold-transition sidebar-mini layout-fix"> <!-- TEMP --> <!-- I added login-page --> <!-- aca hay problemas -->
-  <!-- Site wrapper -->
   <!-- <div class="wrapper"> --> <!-- TEMP --> <!-- This wrapper was moved inside the php tag to validate session -->
     <?php
 
       if(isset($_SESSION['sessionStarted']) && $_SESSION['sessionStarted'] ==  'ok'){
 
-        echo '<div class="wrapper">';
+        echo '<body class="hold-transition sidebar-mini layout-fix">';
 
-        //header section
-        include "moduls/header.php";
+          echo '<div class="wrapper">';
 
-        //menu section
-        include "moduls/menu.php";
+            //header section
+            include "moduls/header.php";
 
-        //content section - the "route" variable comes from .htaccess file, code section "index.php?route=$1"
-        //friendly link route from the menu sidebar nav-item, dont need to write php extension
-        if(isset($_GET['route']))
-        {
-          if($_GET['route'] == 'dashboard' ||
-             $_GET['route'] == 'usuarios' ||
-             $_GET['route'] == 'categorias' ||
-             $_GET['route'] == 'productos' ||
-             $_GET['route'] == 'clientes' ||
-             $_GET['route'] == 'ventas' ||
-             $_GET['route'] == 'crear-venta' ||
-             $_GET['route'] == 'reportes' ||
-             $_GET['route'] == 'salir')
-          {
-            include 'moduls/'.$_GET['route'].'.php';
-          }else
-          {
-            include 'moduls/404.php'; //this will redirect the user to an error page if you type a page that is no included on moduls
-          }
-        }else
-        {
-          include 'moduls/dashboard.php';  //here you will be redirect to the dashboard if you type http://localhost/inventario/
-        };
+            //menu section
+            include "moduls/menu.php";
 
-        //footer section
-        include "moduls/footer.php";
+            //content section - the "route" variable comes from .htaccess file, code section "index.php?route=$1"
+            //friendly link route from the menu sidebar nav-item, dont need to write php extension
+            if(isset($_GET['route']))
+            {
+              if($_GET['route'] == 'dashboard' ||
+                 $_GET['route'] == 'usuarios' ||
+                 $_GET['route'] == 'categorias' ||
+                 $_GET['route'] == 'productos' ||
+                 $_GET['route'] == 'clientes' ||
+                 $_GET['route'] == 'ventas' ||
+                 $_GET['route'] == 'crear-venta' ||
+                 $_GET['route'] == 'reportes' ||
+                 $_GET['route'] == 'salir')
+              {
+                include 'moduls/'.$_GET['route'].'.php';
+              }else
+              {
+                include 'moduls/404.php'; //this will redirect the user to an error page if you type a page that is no included on moduls
+              }
+            }else
+            {
+              include 'moduls/dashboard.php';  //here you will be redirect to the dashboard if you type http://localhost/inventario/
+            };
 
-        echo '</div>';
+            //footer section
+            include "moduls/footer.php";
+
+          echo '</div>';
+
+        echo '</body>';
 
       }else 
       {
-        include "moduls/login.php";
+        //I added another body tag, in this body I added the login-page class,the CSS properties of this class is different compared with the wrapper which is the dashboard
+        echo '<body class="hold-transition sidebar-mini layout-fix login-page">';
+
+          include "moduls/login.php";
+
+        echo '</body>';  
       };
 
     ?>
 
-  <!-- </div> --> <!-- This wrapper was moved inside the php tag to validate session -->
-  <!-- ./wrapper --> 
   <script src="views/js/usuarios.js"></script>
-  </body> <!-- TEMP -->
+
 </html>
