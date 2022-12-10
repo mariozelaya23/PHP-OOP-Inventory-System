@@ -61,7 +61,7 @@
                 //showing all the users on the users table
                 echo '
                   <tr>
-                    <td>'.$value["usuario_id"].'</td>
+                    <td>'.($key+1).'</td>
                     <td>'.$value["nombre"].'</td>
                     <td>'.$value["usuario"].'</td>';
 

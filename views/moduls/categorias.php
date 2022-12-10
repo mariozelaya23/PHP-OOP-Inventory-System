@@ -39,16 +39,40 @@
           </thead>
 
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Equipos electromecanicos</td>
-              <td>
-                <div class="btn-group">
-                  <button class="btn btn-warning"><i class="fa fa-pen"></i></button>
-                  <button class="btn btn-danger"><i class="fa fa-times"></i></button>
-                </div>
-              </td>
-            </tr>
+
+            <!-- Showing Categories -->
+            <?php
+
+              //sending this values null due to I want to bring all the data
+              $item = null;
+              $valor = null;
+              
+              $categorias = ControladorCategorias::ctrMostrarCategorias($item, $valor);
+
+              //this brings an array of the categories table
+              // var_dump($categorias);
+
+              //using FOR EACH to show the array
+              foreach ($categorias as $key => $value) {
+                
+                //I'm using KEY here, this is the rows count from the array NOT from the database, incrementing by one to show from 1 instead from 0
+                echo '
+                <tr>
+                  <td>'.($key+1).'</td>
+                  <td>'.$value["categoria"].'</td>
+                  <td>
+                    <div class="btn-group">
+                      <button class="btn btn-warning"><i class="fa fa-pen"></i></button>
+                      <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                ';
+
+              }
+
+            ?>
+
           </tbody>
         
         </table>
