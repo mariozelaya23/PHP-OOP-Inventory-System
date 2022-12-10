@@ -65,7 +65,7 @@
 <!-- /.content-wrapper -->
 
 
-<!-- MODAL ADD CATEGORY -->
+<!-- MODAL ADD USER -->
 <div class="modal fade" id="modalAgregarCategoria">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -85,7 +85,7 @@
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-th"></i></span>
-                <input type="text" class="form-control input-lg nuevaCategoria" name="nuevaCategoria" placeholder="Ingresar Categoria" required>
+                <input type="text" class="form-control input-lg" name="nuevaCategoria" placeholder="Ingresar Categoria" required>
               </div>      
             </div>
             
@@ -95,17 +95,6 @@
           <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
           <button type="submit" class="btn btn-primary">Guardar categoria</button>
         </div>
-
-        <!-- capturing nuevaCategoria in a POST variable to send this to the controller -->
-
-        <?php 
-
-          //creating object that will execute the controller
-          $crearCategoria = new ControladorCategorias();
-          $crearCategoria -> ctrCrearCategoria();
-
-        ?>
-
       </form> <!-- /FORM -->
     </div>
     <!-- /.modal-content -->
