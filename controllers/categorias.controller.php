@@ -83,5 +83,75 @@ class ControladorCategorias
 
 	}
 
+
+
+	//Edit Category
+	static public function ctrEditarCategoria()
+	{
+
+		//if it comes a POST variable nuevaCategoria, that means that we are going to create a category
+		if(isset($_POST["editarCategoria"]))
+		{
+			//allowing just the following characters, including spanish characters
+			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarCategoria"]))
+			{
+
+				$tabla = "categorias";
+				
+				$datos = array("categoria"=>$_POST["editarCategoria"], "categoria_id"=>$_POST['idCategoria']);
+
+				$respuesta = ModelCategorias::mdlEditarCategoria($tabla, $datos);
+
+				if($respuesta == "ok")
+				{
+
+					echo "<script>
+
+						Swal.fire({
+						  icon: 'success',
+						  title: 'La categoria a sido re-nombrada correctamente!!',
+						  showConfirmButton: true,
+						  confirmButtonText: 'Cerrar',
+						  closeOnConfirm: false
+						}).then((result)=>{
+							if(result.value)
+							{
+								window.location = 'categorias';
+							}
+						});
+					
+					</script>";
+
+				}
+
+			}else
+			{
+
+				echo "<script>
+
+					Swal.fire({
+					  icon: 'error',
+					  title: 'La categoria no puede ir vacia o llevar caracteres especiales!!',
+					  showConfirmButton: true,
+					  confirmButtonText: 'Cerrar',
+					  closeOnConfirm: false
+					}).then((result)=>{
+						if(result.value)
+						{
+							window.location = 'categorias';
+						}
+					});
+					
+				</script>";
+
+			}
+		}
+
+	}
+
+
+
+
+
 }
 

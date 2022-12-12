@@ -51,3 +51,42 @@ $(".nuevaCategoria").on('change',function(){
 	})
 
 })
+
+
+//Category Edit
+$(".btnEditarCategoria").click(function(){
+
+	var idCategoria =$(this).attr("idCategoria");
+
+	var datos = new FormData();
+	datos.append("idCategoria", idCategoria);
+
+	// console.log("idCategoria", idCategoria);
+
+	$.ajax({
+
+		url:"ajax/categorias.ajax.php",
+		method: "POST",
+		data: datos,
+		cache: false,
+		contentType: false,
+		processData: false,
+		dataType: "json",
+		success: function (respuesta)
+		{
+
+			// console.log("respuesta",respuesta);
+
+			//due to respuesta returns a json with the category data we use this to print the category column on the ID of the modal form (id="editarCategoria")
+			$("#editarCategoria").val(respuesta["categoria"]);
+
+			//adding this to know what row we are going to edit on the table
+			$("#idCategoria").val(respuesta["categoria_id"]);
+
+		} 		                               
+
+
+	})
+
+	
+})

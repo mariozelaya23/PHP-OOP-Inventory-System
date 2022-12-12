@@ -56,5 +56,28 @@ class ModelCategorias
 	}
 
 
+	// Edit Category
+	static public function mdlEditarCategoria($tabla, $datos)
+	{
+
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET categoria = :categoria WHERE categoria_id = :categoria_id");
+
+		$stmt -> bindParam(":categoria", $datos["categoria"], PDO::PARAM_STR);
+		$stmt -> bindParam(":categoria_id", $datos["categoria_id"], PDO::PARAM_INT);
+
+		if ($stmt->execute()) 
+		{
+			return "ok";
+		}else
+		{
+			return "error";
+		}
+
+		//empty the object
+		$stmt -> null;
+
+	}
+
+
 }
 

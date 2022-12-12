@@ -62,7 +62,7 @@
                   <td>'.$value["categoria"].'</td>
                   <td>
                     <div class="btn-group">
-                      <button class="btn btn-warning"><i class="fa fa-pen"></i></button>
+                      <button class="btn btn-warning btnEditarCategoria" idCategoria="'.$value["categoria_id"].'" data-toggle="modal" data-target="#modalEditarCategoria"><i class="fa fa-pen"></i></button>
                       <button class="btn btn-danger"><i class="fa fa-times"></i></button>
                     </div>
                   </td>
@@ -137,6 +137,58 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+
+<!-- MODAL EDIT CATEGORY -->
+<div class="modal fade" id="modalEditarCategoria">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- FORM -->
+      <form role="form" method="post" >
+        <!-- MODAL HEADER -->
+        <div class="modal-header" style="background: #3d9970; color: white;">
+          <h4 class="modal-title">Editar Categoria</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!-- MODAL BODY -->
+        <div class="modal-body">
+          <div class="card-body">
+            <!-- Textbox Name -->
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                <input type="text" class="form-control input-lg editarCategoria" name="editarCategoria" id="editarCategoria" required>
+                <input type="hidden" name="idCategoria" id="idCategoria" required>
+              </div>      
+            </div>
+            
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+          <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </div>
+
+        <!-- capturing editarCategoria in a POST variable, now, if we want to make a change, the function below will send this to the controller -->
+
+        <?php 
+
+          //creating object that will execute the controller
+          $editarCategoria = new ControladorCategorias();
+          $editarCategoria -> ctrEditarCategoria();
+
+        ?>
+
+      </form> <!-- /FORM -->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 
 
 <script>
