@@ -90,3 +90,78 @@ $(".btnEditarCategoria").click(function(){
 
 	
 })
+
+
+//Deleting the category
+$(document).on("click", ".btnEliminarCategoria", function(){
+
+	//storing the user id in the idCategoria variable
+	var idCategoria = $(this).attr("idCategoria");
+
+	// console.log('idCategoria', idCategoria);
+
+	//showing an alert that if you continue the category will be deleted
+	Swal.fire({
+
+		icon: 'warning',
+        title: '¿Está seguro de borrar la categoria?',
+        text: "¡Si no lo está puede cancelar la accíón!",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          cancelButtonText: 'Cancelar',
+          confirmButtonText: 'Si, borrar categoria!'
+	}).then((result) => {
+
+		if(result.value)
+		{
+
+			//bring any info related to the category and find it on the database
+			var datos = new FormData();
+			datos.append("idCategoriaEliminar", idCategoria);
+
+			//ajax
+			$.ajax({
+
+				url: "ajax/categorias.ajax.php",
+                method: "POST",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(respuesta)
+                {
+                	//testing what respuesta bring, if yes is clicked, it bring in a json format the category information
+                	// console.log("respuesta", respuesta);
+                	// return;
+
+                	if(respuesta == "ok")
+                	{
+
+                		Swal.fire({
+                            icon: 'success',
+                            title: 'La categoria ha sido borrada correctamente',
+                            showConfirmButton: true,
+                            confirmButtonText: 'Cerrar',
+                            closeOnConfirm: false
+                        }).then((result)=>{
+                            if(result.value)
+                            {
+                                window.location = 'categorias';
+                            }
+                        });   
+
+                	}
+
+                }
+
+			})
+
+
+		}
+
+	})
+
+
+
+})

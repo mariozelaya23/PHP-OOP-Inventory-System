@@ -63,7 +63,7 @@
                   <td>
                     <div class="btn-group">
                       <button class="btn btn-warning btnEditarCategoria" idCategoria="'.$value["categoria_id"].'" data-toggle="modal" data-target="#modalEditarCategoria"><i class="fa fa-pen"></i></button>
-                      <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                      <button class="btn btn-danger btnEliminarCategoria" idCategoria="'.$value["categoria_id"].'"><i class="fa fa-times"></i></button>
                     </div>
                   </td>
                 </tr>

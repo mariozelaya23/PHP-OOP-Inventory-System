@@ -40,6 +40,22 @@ class AjaxCategorias
 		echo json_encode($respuesta);
 	}
 
+	//Delete category
+	public $idCategoriaEliminar;
+
+	public function ajaxEliminarCategoria()
+	{
+
+		// echo $this -> idCategoriaEliminar;
+		
+		$respuesta = ControladorCategorias::ctrBorrarCategoria($this -> idCategoriaEliminar);
+
+		echo $respuesta;
+
+	}
+
+
+
 
 }
 
@@ -62,4 +78,13 @@ if(isset($_POST["idCategoria"]))
 	$categoria -> idCategoria = $_POST["idCategoria"];
 	$categoria -> ajaxEditarCategoria();
 
+}
+
+//object Delete Category
+if(isset($_POST["idCategoriaEliminar"]))
+{
+
+	$eliminarCategoria = new AjaxCategorias();
+	$eliminarCategoria -> idCategoriaEliminar = $_POST["idCategoriaEliminar"];
+	$eliminarCategoria -> ajaxEliminarCategoria();
 }

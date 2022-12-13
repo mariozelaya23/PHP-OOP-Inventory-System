@@ -150,7 +150,15 @@ class ControladorCategorias
 	}
 
 
+	//Delete Category
+	static public function ctrBorrarCategoria($idCategoria)
+	{
 
+		$respuesta = ModelCategorias::mdlBorrarCategoria("categorias", "categoria_id", $idCategoria);
+
+		return $respuesta;
+
+	}
 
 
 }

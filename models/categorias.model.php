@@ -79,5 +79,29 @@ class ModelCategorias
 	}
 
 
+	//Delete User
+	static public function mdlBorrarCategoria($tabla, $item, $valor)
+	{
+
+		$stmt = Conexion::conectar() -> prepare("DELETE FROM $tabla WHERE $item = :$item");
+
+		$stmt -> bindParam(":".$item, $valor, PDO::PARAM_INT);
+
+
+		if($stmt->execute())
+        {
+            return "ok";
+        }else
+        {
+            return "error";
+        }
+
+
+        $stmt = null;
+
+
+	}
+
+
 }
 
