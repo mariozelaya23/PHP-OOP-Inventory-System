@@ -28,7 +28,7 @@
 
       <div class="card-body">
         
-        <table id="tablaUsuarios" class="table table-bordered table-striped tables"> <!-- tables is the class name, I use this name on tamplate.js to activate the DataTable plugin -->
+        <table id="tablaProductos" class="table table-bordered table-striped tables"> <!-- tables is the class name, I use this name on tamplate.js to activate the DataTable plugin -->
           
           <thead>
             <tr>
@@ -39,57 +39,28 @@
               <th>Categoria</th>
               <th>Stock</th>
               <th>Precio de compra</th>
-              <th>Precio de venta</th>
               <th>Fecha Agregado</th>
               <th>Acciones</th> 
             </tr>  
           </thead>
 
           <tbody>
-
-            <?php
-
-              $item = null;
-              $valor = null;
-
-              $productos = ControladorProductos::ctrMostrarProductos($item, $valor);
-
-              // var_dump($productos);
-
-              foreach ($productos as $key => $value) {
-                
-                echo '
-
-                <tr>
-                  <td>'.($key+1).'</td>
-                  <td></td>
-                  <td>'.$value["codigo"].'</td>
-                  <td>'.$value["description"].'</td>';
-
-                  $item = "categoria_id";
-                  $valor = $value["categoria_id"];
-
-                  $categoria = ControladorCategorias::ctrMostrarCategorias($item, $valor);
-                  
-                  echo '<td>'.$categoria["categoria"].'</td>
-                  <td>'.$value["stock"].'</td>
-                  <td>'.$value["precio_compra"].'</td>
-                  <td>'.$value["precio_venta"].'</td>
-                  <td>'.$value["fecha"].'</td>
-                  <td>
-                    <div class="btn-group">
-                      <button class="btn btn-warning"><i class="fa fa-pen"></i></button>
-                      <button class="btn btn-danger"><i class="fa fa-times"></i></button>
-                    </div>
-                  </td>
-                </tr>
-
-                ';
-
-              }
-
-            ?>
-
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <div class="btn-group">
+                  <button class="btn btn-warning"><i class="fa fa-pen"></i></button>
+                  <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                </div>
+              </td>
+            </tr>
           </tbody>
         
         </table>
@@ -210,7 +181,7 @@
 
 <script>
   $(function () {
-    $("#tablaUsuarios").DataTable({
+    $("#tablaProductos").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
     }).buttons().container().appendTo('#tablaUsuarios_wrapper .col-md-6:eq(0)');

@@ -15,10 +15,12 @@
     <link rel="stylesheet" href="views/plugins/fontawesome-free/css/all.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="views/dist/css/adminlte.css">
-      <!-- DataTables -->
+    <!-- DataTables -->
     <link rel="stylesheet" href="views/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="views/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="views/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <!-- Icheck -->
+    <link rel="stylesheet" href="views/plugins/icheck-bootstrap/icheck-bootstrap.css">
 
     <!-- jQuery -->
     <script src="views/plugins/jquery/jquery.min.js"></script>
